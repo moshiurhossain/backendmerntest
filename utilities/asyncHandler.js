@@ -1,4 +1,4 @@
-exports.asyncHandler =(callbackfn)=>{
+const asyncHandler =(callbackfn)=>{
     return  (req,res,next)=>{
         try{
              callbackfn(req,res,next)
@@ -7,3 +7,5 @@ exports.asyncHandler =(callbackfn)=>{
         }
     }
 }
+
+module.exports = { asyncHandler }

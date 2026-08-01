@@ -1,7 +1,8 @@
 const { apiResponse } = require("../utilities/apiResponse");
 const { asyncHandler } = require("../utilities/asyncHandler");
 const categorySchema = require("../model/category.model");
-
+const fs = require('fs')
+const path = require('path')
 
 
 const addCategory = asyncHandler(async (req, res, next) => {
@@ -20,6 +21,10 @@ const addCategory = asyncHandler(async (req, res, next) => {
     await category.save()
     
     apiResponse(res, 200, "Category added successfully",category )
+})
+
+const deleteCategory = asyncHandler(async (req,res)=>{
+    
 })
 
 

@@ -16,8 +16,11 @@ foodId:{
 },
 quantity:{
     type:Number,
-    required:[true, "Quantity is required"],
-    trim:true,
+    default:1,
+    min:[1, "Quantity must be at least 1"],
+    max:[100, "Quantity cannot be more than 100"],
+    
+
 },
 totalPrice:{
     type:Number,

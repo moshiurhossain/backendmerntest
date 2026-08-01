@@ -16,4 +16,7 @@ router.use('/food',require('./food'))
 // http://localhost:8080/api/v1/cart
 router.use('/cart',require('./cart'))
 
+// http://localhost:8080/api/v1/review
+router.use('/review',require('./review'))
+
 module.exports = router;

@@ -34,10 +34,14 @@ const foodSchema = new Schema({
         {
             type:Schema.Types.ObjectId,
             ref:"review",
-            required:[true, "Review is required"],
-            trim:true,
+            default:[],
         },
-    ]
+    ],
+    slug:{
+        type:String,
+        required:[true, "Slug is required"],
+        trim:true,
+    },
 
 },{timestamps:true,versionKey:false})
 
