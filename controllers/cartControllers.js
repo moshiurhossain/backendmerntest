@@ -13,31 +13,33 @@ const addToCart = asyncHandler(async (req,res)=>{
    if(!existingFood) return apiResponse(res,404,'Food does not exist')
 
    const foodPrice = existingFood.price
-   const existingCart = await cartSchema.findOne({user})
+   const existingCart = await cartSchema.findOne({user,foodId})
 
 
-   if(existingCart){
-     
-     existingCart.quantity += 1
+
+   if(existingCart){ 
+       existingCart.quantity += 1
      await existingCart.save()
      const existingCartFoodquantity = existingCart.quantity 
      const existingCartFoodPrice = existingCart.totalPrice
      existingCart.totalPrice = existingCartFoodPrice + foodPrice
      await existingCart.save()
-  
-   }else{
+
+     apiResponse(res, 200, "Cart-item quantity increased",existingCart)
+
+    }else{
         const newCart = new cartSchema({
-        user,
-        foodId,
-        quantity:1,
-        totalPrice:foodPrice,    
-    })
-
-    await newCart.save()
-   }
+            user,
+            foodId,
+            quantity:1,
+            totalPrice:foodPrice,    
+        })
+        await newCart.save()
+        apiResponse(res, 200, "Added to cart successfully",newCart)
+    }
     
-
-    apiResponse(res, 200, "Added to cart successfully")
+  
+    
 })
 
 module.exports = { addToCart }

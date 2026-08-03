@@ -8,8 +8,11 @@ const slugGenerator = require("../utilities/slugGenerator");
 const addFood = asyncHandler(async (req, res, next) => {
     const { name, description, price, category } = req.body
     const { filename } = req.file
-    const image = `${process.env.SERVER_URL}/${filename}`
-    console.log(image)
+
+    const existingFood = await foodSchema.findOne({name,price,category})
+    if(existingFood) return apiResponse(res,404,'Food already exists')
+    console.log(`${process.env.SERVER_URL}/${filename}`)
+    
     if(!name || !description || !price || !category) return apiResponse(res,404,'You must enter all information')
     
     const slug = slugGenerator(name)
@@ -18,7 +21,7 @@ const addFood = asyncHandler(async (req, res, next) => {
       name,
       description,
       price,
-      image,
+      image:`${process.env.SERVER_URL}/${filename}`,
       category,
       slug,
     })  
@@ -58,4 +61,4 @@ const deleteFood = asyncHandler(async (req, res, next) => {
 })
 
 
-module.exports = { addFood, getAllFood }
+module.exports = { addFood, getAllFood, deleteFood }
